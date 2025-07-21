@@ -1,19 +1,24 @@
 version: 1
+
 backend:
   phases:
+    preBuild:
+      commands:
+        - wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
+        - tar -xzf Python-3.13.0.tgz
+        - cd Python-3.13.0
+        - ./configure --enable-optimizations
+        - make -j$(nproc)
+        - make altinstall
+        - cd ..
+        - python3.13 --version
+        - pip3 install --upgrade pip
+        - pip3 install pipenv
+        - cd amplify/backend/function/gaspardTestFunction
+        - pipenv install --system --deploy
+        - cd ../../../..
     build:
       commands:
-        - '# Pré-installation Python 3.13 via pyenv'
-        - 'curl https://pyenv.run | bash'
-        - 'export PATH="$HOME/.pyenv/bin:$PATH"'
-        - 'eval "$(pyenv init --path)"'
-        - 'eval "$(pyenv init -)"'
-        - 'pyenv install 3.13.0 -s'
-        - 'pyenv global 3.13.0'
-        - 'python --version'
-        - 'pipenv --rm || true'
-        - 'pipenv install'
-        - '# Deploy du backend Amplify'
         - amplifyPush --simple
 
 frontend:
@@ -23,11 +28,11 @@ frontend:
         - npm ci --cache .npm --prefer-offline
         - |
             if npm run test:unit && npm run test:e2e; then
-              curl -X POST "https://webhook.site/16c7901c-2531-4ee0-a446-b1bb362d64c9" \
+              curl -X POST "https://webhook.site/…" \
                 -H "Content-Type: application/json" \
                 -d '{"status":"success","message":"PreBuild tests passed"}'
             else
-              curl -X POST "https://webhook.site/16c7901c-2531-4ee0-a446-b1bb362d64c9" \
+              curl -X POST "https://webhook.site/…" \
                 -H "Content-Type: application/json" \
                 -d '{"status":"failure","message":"PreBuild tests failed"}'
               exit 1
