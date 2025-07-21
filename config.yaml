@@ -1,0 +1,49 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - '# Deploy du backend Amplify'
+        - amplifyPush --simple
+
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci --cache .npm --prefer-offline
+        - |
+            if npm run test:unit && npm run test:e2e; then
+              curl -X POST "https://webhook.site/16c7901c-2531-4ee0-a446-b1bb362d64c9" \
+                -H "Content-Type: application/json" \
+                -d '{"status":"success","message":"PreBuild tests passed"}'
+            else
+              curl -X POST "https://webhook.site/16c7901c-2531-4ee0-a446-b1bb362d64c9" \
+                -H "Content-Type: application/json" \
+                -d '{"status":"failure","message":"PreBuild tests failed"}'
+              exit 1
+            fi
+    build:
+      commands:
+        - npm run build
+
+  test:
+    commands:
+      - echo "Rien à exécuter, les tests sont déjà lancés en preBuild"
+    reports:
+      junit:
+        files:
+          - reports/**/*.xml
+        fileFormat: JUNITXML
+      cobertura:
+        files:
+          - coverage/cobertura-coverage.xml
+        fileFormat: COBERTURAXML
+
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
+
+  cache:
+    paths:
+      - .npm/**/*
