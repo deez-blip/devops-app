@@ -17,7 +17,7 @@ backend:
         - pip3 install pipenv
         - cd amplify/backend/function/gaspardTestFunction
         - pipenv install --system --deploy
-        - cd ../../../..
+        - cd ../../../../
     build:
       commands:
         - amplifyPush --simple
