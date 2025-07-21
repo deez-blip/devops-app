@@ -10,7 +10,7 @@ backend:
         - cd Python-3.13.0
         - ./configure --enable-optimizations
         - make -j$(nproc)
-        - make altinstall
+        - sudo make altinstall
         - cd ..
         - python3.13 --version
         - pip3 install --upgrade pip
