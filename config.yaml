@@ -3,6 +3,16 @@ backend:
   phases:
     build:
       commands:
+        - '# Pré-installation Python 3.13 via pyenv'
+        - 'curl https://pyenv.run | bash'
+        - 'export PATH="$HOME/.pyenv/bin:$PATH"'
+        - 'eval "$(pyenv init --path)"'
+        - 'eval "$(pyenv init -)"'
+        - 'pyenv install 3.13.0 -s'
+        - 'pyenv global 3.13.0'
+        - 'python --version'
+        - 'pipenv --rm || true'
+        - 'pipenv install'
         - '# Deploy du backend Amplify'
         - amplifyPush --simple
 
