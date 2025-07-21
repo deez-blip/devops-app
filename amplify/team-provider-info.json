@@ -11,5 +11,23 @@
       "StackId": "arn:aws:cloudformation:eu-west-1:975370625373:stack/amplify-devopsapp-dev-64041/855bf690-660d-11f0-b29e-02f73d533a0d",
       "AmplifyAppId": "d11e31cmea61u6"
     }
+  },
+  "gaspard": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-devopsapp-gaspard-4a9f8-authRole",
+      "UnauthRoleArn": "arn:aws:iam::975370625373:role/amplify-devopsapp-gaspard-4a9f8-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::975370625373:role/amplify-devopsapp-gaspard-4a9f8-authRole",
+      "Region": "eu-west-1",
+      "DeploymentBucketName": "amplify-devopsapp-gaspard-4a9f8-deployment",
+      "UnauthRoleName": "amplify-devopsapp-gaspard-4a9f8-unauthRole",
+      "StackName": "amplify-devopsapp-gaspard-4a9f8",
+      "StackId": "arn:aws:cloudformation:eu-west-1:975370625373:stack/amplify-devopsapp-gaspard-4a9f8/ebdb4c90-662b-11f0-9471-06c715fcf1c1",
+      "AmplifyAppId": "d11e31cmea61u6"
+    },
+    "categories": {
+      "function": {
+        "gaspardTestFunction": {}
+      }
+    }
   }
 }
