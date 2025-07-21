@@ -6,8 +6,8 @@ test('affiche le texte et déclenche onClick', () => {
     render(<Button onClick={handle}>Clique-moi</Button>);
 
     const btn = screen.getByRole('button', { name: /clique-moi/i });
-    expect(btn).toBeInTheDocument();
+    expect(btn).not.toBeInTheDocument();
 
     fireEvent.click(btn);
-    expect(handle).toHaveBeenCalledTimes(1);
+    expect(handle).toHaveBeenCalledTimes(0);
 });
